@@ -8,7 +8,7 @@ class LoginController
     public function index()
     {
 
-        if(isset($_SESSION['user_logged']) && $_SESSION['user_logged'] == true){
+        if (isset($_SESSION['user_logged']) && $_SESSION['user_logged'] == true) {
             header('Location: ' . URL . 'home');
         }
 
@@ -21,21 +21,21 @@ class LoginController
     {
         $data = [
             'email' => filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL),
-            'senha' => filter_input(INPUT_POST, 'password')
+            'senha' => filter_input(INPUT_POST, 'password'),
         ];
 
         $model = new UserModel;
 
-        if(!$user = $model->findByEmail($data['email'])){
+        if (!$user = $model->findByEmail($data['email'])) {
             die('Usuário não cadastrado');
         }
 
-        if(!password_verify($data['senha'], $user->senha)){
+        if (!password_verify($data['senha'], $user->senha)) {
             die('Senha incorreta, tente novamente');
         }
 
         $_SESSION['user_logged'] = true;
-        $_SESSION['user_info'] = ['id' => $user->id, 'name' => $user->nome, 'email' => $user->email];
+        $_SESSION['user_info']   = ['id' => $user->id, 'name' => $user->nome, 'email' => $user->email];
 
         header('Location: ' . URL . 'home');
     }
@@ -53,27 +53,27 @@ class LoginController
             'nome' => filter_input(INPUT_POST, 'name'),
             'email' => filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL),
             'senha' => filter_input(INPUT_POST, 'password'),
-            'data_nascimento' => filter_input(INPUT_POST, 'birthday')
+            'data_nascimento' => filter_input(INPUT_POST, 'birthday'),
         ];
 
         $model = new UserModel;
 
-        if($model->findByEmail($data['email'])) {
+        if ($model->findByEmail($data['email'])) {
             die('Usuário já existente');
         }
 
-        if($model->create($data)) {
+        if ($model->create($data)) {
             header('Location: ' . URL . 'login');
         }
     }
 
     public function logout()
     {
-        if($_SESSION['user_logged']) {
+        if (isset($_SESSION['user_logged'])) {
             unset($_SESSION['user_logged']);
             unset($_SESSION['user_info']);
-
-            header('Location: ' . URL . 'login');
         }
+
+        header('Location: ' . URL . 'login');
     }
 }

@@ -49,4 +49,13 @@ class Model
 
         return $query->fetchAll();
     }
+
+    public function countTotal()
+    {
+        $sql = "SELECT COUNT(id) as total FROM {$this->table}";
+        $query = $this->db->prepare($sql);
+        $query->execute();
+
+        return (int) $query->fetch()->total;
+    }
 }

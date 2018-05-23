@@ -1,6 +1,8 @@
 <?php
 namespace App\Controllers;
 
+use App\Models\UserModel;
+
 class LoginController
 {
     public function index()
@@ -24,7 +26,22 @@ class LoginController
 
     public function registration()
     {
-        var_dump($_POST);
+        $data = [
+            'nome' => filter_input(INPUT_POST, 'name'),
+            'email' => filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL),
+            'senha' => filter_input(INPUT_POST, 'password'),
+            'data_nascimento' => filter_input(INPUT_POST, 'birthday')
+        ];
+
+        $user = new UserModel;
+
+        if($user->findByEmail($data['email'])) {
+            die('Usuário já existente');
+        }
+
+        if($user->create($data)) {
+            header('Location: ' . URL . 'login');
+        }
     }
 
     public function logout()

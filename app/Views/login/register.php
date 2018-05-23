@@ -22,6 +22,11 @@
                                         <input id="password" type="password" class="form-control" name="password" required>
                                     </div>
 
+                                    <div class="form-group">
+                                        <label for="birthday">Senha</label>
+                                        <input id="birthday" type="date" class="form-control" name="birthday">
+                                    </div>
+
                                     <div class="form-group no-margin">
                                         <button type="submit" class="btn btn-primary btn-block">
                                             Registrar

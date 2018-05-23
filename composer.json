@@ -1,0 +1,17 @@
+{
+    "name": "iagoq/php-app",
+    "description": "Simple mvc application with authentication",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Iago Queiroz",
+            "email": "iago.queiroz@hotmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    }
+}

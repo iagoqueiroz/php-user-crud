@@ -7,4 +7,9 @@ class HomeController
     {
         echo "HOME PAGE - INDEX";
     }
+
+    public function teste()
+    {
+        echo "HOME PAGE - TESTE";
+    }
 }

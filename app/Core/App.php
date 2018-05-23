@@ -18,7 +18,7 @@ class App
         if (!$this->controller) {
             $call = new \App\Controllers\HomeController;
             $call->index();
-        } elseif (file_exists('application/Controllers/' . ucfirst($this->controller) . 'Controller.php')) {
+        } elseif (file_exists(APP . 'Controllers/' . ucfirst($this->controller) . 'Controller.php')) {
             $controllerName = "\\App\\Controllers\\" . ucfirst($this->controller) . "Controller";
             $this->controller = new $controllerName();
 

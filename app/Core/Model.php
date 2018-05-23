@@ -50,6 +50,15 @@ class Model
         return $query->fetchAll();
     }
 
+    public function paginate($offset, $limit, $sort = 'DESC')
+    {
+        $sql = "SELECT * FROM {$this->table} ORDER BY id {$sort} LIMIT {$offset},{$limit}";
+        $query = $this->db->prepare($sql);
+        $query->execute();
+
+        return $query->fetchAll();
+    }
+
     public function countTotal()
     {
         $sql = "SELECT COUNT(id) as total FROM {$this->table}";

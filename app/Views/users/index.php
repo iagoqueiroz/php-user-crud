@@ -36,7 +36,15 @@
                     </table>
                 </div>
                 <div class="card-footer">
-                    Paginação
+                    <nav>
+                        <ul class="pagination pagination-sm">
+                            <?php foreach(range(1, $maxPages) as $page): ?>
+                                <li class="page-item">
+                                    <a href="?page=<?=$page?>" class="page-link"><?=$page?></a>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </nav>
                 </div>
             </div>
         </section>

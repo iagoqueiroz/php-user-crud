@@ -20,7 +20,7 @@ trait AuthenticableTrait
 
         if ($onModel) {
             $model = new UserModel;
-            $user = $model->find($_SESSION['user_info']['id']);
+            $user  = $model->find($_SESSION['user_info']['id']);
 
             return $user;
         }

@@ -19,7 +19,7 @@ class Model
 
             $options = array(
                 PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ,
-                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
                 PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
             );
 
@@ -32,8 +32,8 @@ class Model
 
     public function find($id)
     {
-        $sql = "SELECT * FROM {$this->table} WHERE id = :id LIMIT 1";
-        $query = $this->db->prepare($sql);
+        $sql    = "SELECT * FROM {$this->table} WHERE id = :id LIMIT 1";
+        $query  = $this->db->prepare($sql);
         $params = [':id' => $id];
 
         $query->execute($params);
@@ -43,7 +43,7 @@ class Model
 
     public function findAll()
     {
-        $sql = "SELECT * FROM {$this->table}";
+        $sql   = "SELECT * FROM {$this->table}";
         $query = $this->db->prepare($sql);
         $query->execute();
 
@@ -52,7 +52,7 @@ class Model
 
     public function paginate($offset, $limit, $sort = 'DESC')
     {
-        $sql = "SELECT * FROM {$this->table} ORDER BY id {$sort} LIMIT {$offset},{$limit}";
+        $sql   = "SELECT * FROM {$this->table} ORDER BY id {$sort} LIMIT {$offset},{$limit}";
         $query = $this->db->prepare($sql);
         $query->execute();
 
@@ -61,7 +61,7 @@ class Model
 
     public function countTotal()
     {
-        $sql = "SELECT COUNT(id) as total FROM {$this->table}";
+        $sql   = "SELECT COUNT(id) as total FROM {$this->table}";
         $query = $this->db->prepare($sql);
         $query->execute();
 

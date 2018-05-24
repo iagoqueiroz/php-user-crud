@@ -54,9 +54,9 @@ class LoginController
     public function registration()
     {
         $data = [
-            'nome' => filter_input(INPUT_POST, 'name'),
-            'email' => filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL),
-            'senha' => filter_input(INPUT_POST, 'password'),
+            'nome'            => filter_input(INPUT_POST, 'name'),
+            'email'           => filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL),
+            'senha'           => filter_input(INPUT_POST, 'password'),
             'data_nascimento' => filter_input(INPUT_POST, 'birthday'),
         ];
 

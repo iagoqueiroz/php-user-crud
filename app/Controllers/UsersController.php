@@ -11,17 +11,17 @@ class UsersController
     public function index()
     {
         $this->authenticated();
-        $page = isset($_GET['page']) ? filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) : 1;
+        $page  = isset($_GET['page']) ? filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) : 1;
         $limit = 5;
 
         $model = new UserModel;
-        
-        $total = $model->countTotal();
+
+        $total    = $model->countTotal();
         $maxPages = ceil($total / $limit);
-        $page = ($page > $maxPages) ? $maxPages : $page;
-        
+        $page     = ($page > $maxPages) ? $maxPages : $page;
+
         $offset = ($limit * $page) - $limit;
-        $users = $model->paginate($offset, $limit);
+        $users  = $model->paginate($offset, $limit);
 
         require_once APP . 'Views/_partials/header.php';
         require_once APP . 'Views/users/index.php';
@@ -32,7 +32,7 @@ class UsersController
     {
         $this->authenticated();
 
-        $id = filter_var($id, FILTER_VALIDATE_INT);
+        $id    = filter_var($id, FILTER_VALIDATE_INT);
         $model = new UserModel;
 
         $user = $model->find($id);
@@ -42,12 +42,49 @@ class UsersController
         require_once APP . 'Views/_partials/footer.php';
     }
 
+    public function edit($id)
+    {
+        $this->authenticated();
+
+        $model = new UserModel;
+        $user  = $model->find($id);
+
+        require_once APP . 'Views/_partials/header.php';
+        require_once APP . 'Views/users/edit.php';
+        require_once APP . 'Views/_partials/footer.php';
+    }
+
+    public function update($id)
+    {
+        $this->authenticated();
+        $auth = $this->getUser();
+
+        $data = [
+            'nome'            => filter_input(INPUT_POST, 'nome'),
+            'email'           => filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL),
+            'senha'           => filter_input(INPUT_POST, 'senha'),
+            'data_nascimento' => filter_input(INPUT_POST, 'data_nascimento'),
+            'emissao'         => filter_input(INPUT_POST, 'emissao'),
+            'data_emissao'    => filter_input(INPUT_POST, 'data_emissao'),
+        ];
+
+        $model = new UserModel;
+        $model->update($id, $data);
+
+        if($id == $auth['id']){
+            $_SESSION['user_info']['name'] = $data['nome'];
+            $_SESSION['user_info']['email'] = $data['email'];
+        }
+
+        header('Location: ' . URL . 'users');
+    }
+
     public function delete($id)
     {
         $this->authenticated();
         $auth = $this->getUser();
 
-        if($id == $auth['id']){
+        if ($id == $auth['id']) {
             unset($_SESSION['user_logged']);
             unset($_SESSION['user_info']);
         }

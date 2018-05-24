@@ -56,7 +56,7 @@ html,body {
 }
 
 /* USERS */
-.users-list {
+.users-list, .user-info {
 	margin-top: 60px;
 }
 

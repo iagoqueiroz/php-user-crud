@@ -27,4 +27,18 @@ class UsersController
         require_once APP . 'Views/users/index.php';
         require_once APP . 'Views/_partials/footer.php';
     }
+
+    public function show($id)
+    {
+        $this->authenticated();
+
+        $id = filter_var($id, FILTER_VALIDATE_INT);
+        $model = new UserModel;
+
+        $user = $model->find($id);
+
+        require_once APP . 'Views/_partials/header.php';
+        require_once APP . 'Views/users/show.php';
+        require_once APP . 'Views/_partials/footer.php';
+    }
 }

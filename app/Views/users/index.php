@@ -1,7 +1,7 @@
         <section class="container users-list">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h3>Lista de usuários</h3>
+                    <h4>Lista de usuários</h4>
                     <a href="#" class="btn btn-sm btn-success float-right" data-toggle="tooltip" title="Adicionar Novo"><i class="fas fa-plus"></i></a>
                 </div>
                 <div class="card-body">
@@ -20,8 +20,8 @@
                             <?php foreach($users as $user): ?>
                                 <tr>
                                     <td scope="row"><?=$user->id?></td>
-                                    <td><?=$user->nome?></td>
-                                    <td><?=$user->email?></td>
+                                    <td><a href="<?=URL?>users/show/<?=$user->id?>"><?=$user->nome?></a></td>
+                                    <td><a href="<?=URL?>users/show/<?=$user->id?>"><?=$user->email?></a></td>
                                     <td><?=$user->emissao?></td>
                                     <td><?=$user->data_emissao?></td>
                                     <td>

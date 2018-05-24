@@ -11,8 +11,8 @@
                                 <th scope="col">#</th>
                                 <th scope="col">Nome</th>
                                 <th scope="col">E-Mail</th>
+                                <th scope="col">Nascimento</th>
                                 <th scope="col">Emissão</th>
-                                <th scope="col">Data Emissão</th>
                                 <th scope="col">Ações</th>
                             </tr>
                         </thead>
@@ -22,12 +22,12 @@
                                     <td scope="row"><?=$user->id?></td>
                                     <td><a href="<?=URL?>users/show/<?=$user->id?>"><?=$user->nome?></a></td>
                                     <td><a href="<?=URL?>users/show/<?=$user->id?>"><?=$user->email?></a></td>
+                                    <td><?=$user->data_nascimento?></td>
                                     <td><?=$user->emissao?></td>
-                                    <td><?=$user->data_emissao?></td>
                                     <td>
                                         <div class="btn-group">
-                                            <a class="btn btn-sm btn-light" data-toggle="tooltip" alt="Editar" title="Editar"><i class="fas fa-edit"></i></a>
-                                            <a class="btn btn-sm btn-light" data-toggle="tooltip" alt="Excluir" title="Excluir"><i class="fas fa-times"></i></a>
+                                            <a href="<?=URL?>users/edit/<?=$user->id?>" class="btn btn-sm btn-light" data-toggle="tooltip" alt="Editar" title="Editar"><i class="fas fa-edit"></i></a>
+                                            <a href="<?=URL?>users/delete/<?=$user->id?>" class="btn btn-sm btn-light" data-toggle="tooltip" alt="Excluir" title="Excluir" onclick="return confirm('Deseja mesmo excluir este usuário ?')"><i class="fas fa-times"></i></a>
                                         </div>
                                     </td>
                                 </tr>

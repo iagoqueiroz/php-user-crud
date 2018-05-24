@@ -13,3 +13,10 @@
         <title>Simple MVC Users</title>
     </head>
     <body>
+        <header class="container d-flex justify-content-end">
+            <?php if(isset($_SESSION['user_logged'])): ?>
+                <div class="user-logged float-right">
+                    Bem vindo, <strong><?=$_SESSION['user_info']['name']?></strong> ! <a href="<?=URL?>login/logout">Deslogar</a>
+                </div>
+            <?php endif; ?>
+        </header>

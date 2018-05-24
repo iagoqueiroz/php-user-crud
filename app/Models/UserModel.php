@@ -30,4 +30,13 @@ class UserModel extends Model
 
         return $query->execute($params);
     }
+
+    public function delete($id)
+    {
+        $sql = "DELETE FROM {$this->table} WHERE id = :id";
+        $query = $this->db->prepare($sql);
+        $params = [':id' => $id];
+
+        return $query->execute($params);
+    }
 }

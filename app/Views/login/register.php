@@ -23,7 +23,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="birthday">Senha</label>
+                                        <label for="birthday">Data de Nascimento</label>
                                         <input id="birthday" type="date" class="form-control" name="birthday">
                                     </div>
 

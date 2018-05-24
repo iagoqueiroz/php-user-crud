@@ -37,11 +37,15 @@ class LoginController
         $_SESSION['user_logged'] = true;
         $_SESSION['user_info']   = ['id' => $user->id, 'name' => $user->nome, 'email' => $user->email];
 
-        header('Location: ' . URL . 'home');
+        header('Location: ' . URL . 'users');
     }
 
     public function register()
     {
+        if (isset($_SESSION['user_logged']) && $_SESSION['user_logged'] == true) {
+            header('Location: ' . URL . 'home');
+        }
+
         require_once APP . 'Views/_partials/header.php';
         require_once APP . 'Views/login/register.php';
         require_once APP . 'Views/_partials/footer.php';

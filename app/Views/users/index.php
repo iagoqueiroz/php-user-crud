@@ -35,6 +35,7 @@
                         </tbody>
                     </table>
                 </div>
+                <?php if($maxPages > 1): ?>
                 <div class="card-footer">
                     <nav>
                         <ul class="pagination pagination-sm">
@@ -46,5 +47,6 @@
                         </ul>
                     </nav>
                 </div>
+                <?php endif; ?>
             </div>
         </section>

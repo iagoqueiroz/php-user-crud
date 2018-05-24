@@ -60,6 +60,16 @@ html,body {
 	margin-top: 60px;
 }
 
+.user-logged {
+	font-size: 14px;
+}
+
+.user-logged a {
+	color: red;
+	font-size: 12px;
+	text-transform: uppercase;
+}
+
 @media screen and (max-width: 425px) {
 	.my-login-page .card-wrapper {
 		width: 90%;

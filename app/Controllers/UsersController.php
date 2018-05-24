@@ -12,7 +12,7 @@ class UsersController
     {
         $this->authenticated();
         $page = isset($_GET['page']) ? filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) : 1;
-        $limit = 1;
+        $limit = 5;
 
         $model = new UserModel;
         
@@ -40,5 +40,21 @@ class UsersController
         require_once APP . 'Views/_partials/header.php';
         require_once APP . 'Views/users/show.php';
         require_once APP . 'Views/_partials/footer.php';
+    }
+
+    public function delete($id)
+    {
+        $this->authenticated();
+        $auth = $this->getUser();
+
+        if($id == $auth['id']){
+            unset($_SESSION['user_logged']);
+            unset($_SESSION['user_info']);
+        }
+
+        $model = new UserModel;
+        $model->delete($id);
+
+        header('Location: ' . URL . 'users');
     }
 }

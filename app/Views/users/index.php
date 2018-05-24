@@ -2,7 +2,7 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h4>Lista de usuários</h4>
-                    <a href="#" class="btn btn-sm btn-success float-right" data-toggle="tooltip" title="Adicionar Novo"><i class="fas fa-plus"></i></a>
+                    <a href="<?=URL?>users/create" class="btn btn-sm btn-success float-right" data-toggle="tooltip" title="Adicionar Novo"><i class="fas fa-plus"></i></a>
                 </div>
                 <div class="card-body">
                     <table class="table">

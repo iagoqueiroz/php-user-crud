@@ -67,18 +67,21 @@ class UsersController
             'emissao'         => filter_input(INPUT_POST, 'emissao'),
             'data_emissao'    => filter_input(INPUT_POST, 'data_emissao'),
         ];
-        // hashing the password
-        $data['senha'] = password_hash($data['senha'], PASSWORD_DEFAULT);
 
-        $model = new UserModel;
-        $model->update($data, $id);
+        if (count($data = array_filter($data))) {
+            // hashing the password
+            $data['senha'] = password_hash($data['senha'], PASSWORD_DEFAULT);
 
-        if($id == $auth['id']){
-            $_SESSION['user_info']['name'] = $data['nome'];
-            $_SESSION['user_info']['email'] = $data['email'];
+            $model = new UserModel;
+            $model->update($data, $id);
+
+            if ($id == $auth['id']) {
+                $_SESSION['user_info']['name']  = $data['nome'];
+                $_SESSION['user_info']['email'] = $data['email'];
+            }
+
+            header('Location: ' . URL . 'users');
         }
-
-        header('Location: ' . URL . 'users');
     }
 
     public function delete($id)
@@ -95,5 +98,38 @@ class UsersController
         $model->delete($id);
 
         header('Location: ' . URL . 'users');
+    }
+
+    public function create()
+    {
+        $this->authenticated();
+
+        $data = [
+            'nome'            => filter_input(INPUT_POST, 'nome'),
+            'email'           => filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL),
+            'senha'           => filter_input(INPUT_POST, 'senha'),
+            'data_nascimento' => filter_input(INPUT_POST, 'data_nascimento'),
+            'emissao'         => filter_input(INPUT_POST, 'emissao'),
+            'data_emissao'    => filter_input(INPUT_POST, 'data_emissao'),
+        ];
+
+        if (count($data = array_filter($data))) {
+            $model = new UserModel;
+
+            if ($model->findByEmail($data['email'])) {
+                echo ('E-mail já em uso. Por favor cadastre o usuário com outro e-mail.');
+                die();
+            }
+            // hashing the password
+            $data['senha'] = password_hash($data['senha'], PASSWORD_DEFAULT);
+
+            $model->create($data);
+
+            header('Location: ' . URL . 'users');
+        }
+
+        require_once APP . 'Views/_partials/header.php';
+        require_once APP . 'Views/users/create.php';
+        require_once APP . 'Views/_partials/footer.php';
     }
 }

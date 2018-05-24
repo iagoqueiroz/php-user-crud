@@ -20,6 +20,7 @@ class Model
             $options = array(
                 PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ,
                 PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_PERSISTENT         => true,
                 PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
             );
 
@@ -66,5 +67,73 @@ class Model
         $query->execute();
 
         return (int) $query->fetch()->total;
+    }
+
+    public function create(array $args = [])
+    {
+        try {
+
+            $this->db->beginTransaction();
+
+            $fields = implode(', ', array_keys($args));
+            $binds  = ':' . implode(', :', array_keys($args));
+
+            $sql   = "INSERT INTO {$this->table} ({$fields}) VALUES ({$binds})";
+            $query = $this->db->prepare($sql);
+            foreach ($args as $column => $value) {
+                $query->bindValue(':' . $column, $value);
+            }
+
+            return $query->execute();
+
+        } catch (PDOException $e) {
+            echo "Sentimos muito, houve um erro na operação com o banco de dados.";
+            echo "Erro: " . $e->getMessage();
+            die();
+        }
+    }
+
+    public function update(array $args = [], $id)
+    {
+        try {
+
+            $fields = [];
+            foreach ($args as $column => $value) {
+                $fields[] = $column . ' = :' . $column;
+            }
+
+            $binds = implode(', ', $fields);
+
+            $sql   = "UPDATE {$this->table} SET {$binds} WHERE id = :id";
+            $query = $this->db->prepare($sql);
+            foreach ($args as $column => $value) {
+                $query->bindValue(':' . $column, $value);
+            }
+            $query->bindValue(':id', $id);
+
+            return $query->execute();
+
+        } catch (PDOException $e) {
+            echo "Sentimos muito, houve um erro na operação com o banco de dados.";
+            echo "Erro: " . $e->getMessage();
+            die();
+        }
+    }
+
+    public function delete($id)
+    {
+        try {
+
+            $sql    = "DELETE FROM {$this->table} WHERE id = :id";
+            $query  = $this->db->prepare($sql);
+            $params = [':id' => $id];
+
+            return $query->execute($params);
+
+        } catch (PDOException $e) {
+            echo "Sentimos muito, houve um erro na operação com o banco de dados.";
+            echo "Erro: " . $e->getMessage();
+            die();
+        }
     }
 }

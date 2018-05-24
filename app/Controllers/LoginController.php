@@ -59,6 +59,8 @@ class LoginController
             'senha'           => filter_input(INPUT_POST, 'password'),
             'data_nascimento' => filter_input(INPUT_POST, 'birthday'),
         ];
+        // hashing the password
+        $data['senha'] = password_hash($data['senha'], PASSWORD_DEFAULT);
 
         $model = new UserModel;
 

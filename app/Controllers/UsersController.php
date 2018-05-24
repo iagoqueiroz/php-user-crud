@@ -67,9 +67,11 @@ class UsersController
             'emissao'         => filter_input(INPUT_POST, 'emissao'),
             'data_emissao'    => filter_input(INPUT_POST, 'data_emissao'),
         ];
+        // hashing the password
+        $data['senha'] = password_hash($data['senha'], PASSWORD_DEFAULT);
 
         $model = new UserModel;
-        $model->update($id, $data);
+        $model->update($data, $id);
 
         if($id == $auth['id']){
             $_SESSION['user_info']['name'] = $data['nome'];
